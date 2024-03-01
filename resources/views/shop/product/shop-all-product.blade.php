@@ -3,7 +3,7 @@
 
 
 <!--Page Banner Start-->
-<div class="page-banner" style="background-image: url(public/kidolshop/images/banner/banner-shop.png);">
+<div class="page-banner" style="background-image: url(public/kidshop/images/banner/banner-shop.png);">
     <div class="container">
         <div class="page-banner-content text-center">
             <h2 class="title">Cửa Hàng</h2>
@@ -16,7 +16,9 @@
 </div>
 <!--Page Banner End-->
 
-<?php use App\Http\Controllers\ProductController; ?>
+<?php
+
+use App\Http\Controllers\ProductController; ?>
 
 <!--Shop Start-->
 <div class="shop-page section-padding-6">
@@ -24,7 +26,7 @@
         <div class="row flex-row-reverse">
             <div class="col-lg-9">
                 <!-- <div class="shop-banner">
-                    <a href="#"><img src="{{asset('public/kidolshop/images/banner/banner.png')}}" alt=""></a>
+                    <a href="#"><img src="{{asset('public/kidshop/images/banner/banner.png')}}" alt=""></a>
                 </div> -->
                 <!--Shop Top Bar Start-->
                 <div class="shop-top-bar d-sm-flex align-items-center justify-content-between mt-3">
@@ -47,23 +49,21 @@
                                 <option value="&sort_by=price_asc">Giá, Thấp đến Cao</option>
                             </select> -->
                             <div class="select-input">
-                                <span class="select-input__sort"
+                                <span class="select-input__sort" <?php
+                                                                    if (isset($_GET['sort_by'])) {
+                                                                        echo 'data-sort=' . '&sort_by=' . $_GET['sort_by'];
+                                                                    } else echo "data-sort='&sort_by=new'";
+                                                                    ?>>
                                     <?php
-                                        if(isset($_GET['sort_by'])){
-                                            echo 'data-sort=' . '&sort_by=' .$_GET['sort_by'];
-                                        }else echo "data-sort='&sort_by=new'";
-                                    ?>
-                                >
-                                    <?php
-                                        if(isset($_GET['sort_by'])){
-                                            if($_GET['sort_by'] == 'new') echo 'Mới Nhất';
-                                            else if($_GET['sort_by'] == 'old') echo 'Cũ Nhất';
-                                            else if($_GET['sort_by'] == 'bestsellers') echo 'Bán Chạy';
-                                            else if($_GET['sort_by'] == 'featured') echo 'Nổi Bật';
-                                            else if($_GET['sort_by'] == 'sale') echo 'Đang SALE';
-                                            else if($_GET['sort_by'] == 'price_desc') echo 'Giá, Cao đến Thấp';
-                                            else if($_GET['sort_by'] == 'price_asc') echo 'Giá, Thấp đến Cao';
-                                        }else echo 'Mới Nhất';
+                                    if (isset($_GET['sort_by'])) {
+                                        if ($_GET['sort_by'] == 'new') echo 'Mới Nhất';
+                                        else if ($_GET['sort_by'] == 'old') echo 'Cũ Nhất';
+                                        else if ($_GET['sort_by'] == 'bestsellers') echo 'Bán Chạy';
+                                        else if ($_GET['sort_by'] == 'featured') echo 'Nổi Bật';
+                                        else if ($_GET['sort_by'] == 'sale') echo 'Đang SALE';
+                                        else if ($_GET['sort_by'] == 'price_desc') echo 'Giá, Cao đến Thấp';
+                                        else if ($_GET['sort_by'] == 'price_asc') echo 'Giá, Thấp đến Cao';
+                                    } else echo 'Mới Nhất';
                                     ?>
                                 </span><i class="select-input__icon fa fa-angle-down"></i>
                                 <ul class="select-input__list">
@@ -92,24 +92,24 @@
                             <div class="col-lg-4 col-sm-6">
                                 <div class="single-product">
                                     <div class="product-image">
-                                        <?php $image = json_decode($pd->ImageName)[0];?>
+                                        <?php $image = json_decode($pd->ImageName)[0]; ?>
                                         <a href="{{URL::to('/shop-single/'.$pd->ProductSlug)}}">
-                                            <img src="{{asset('public/storage/kidoldash/images/product/'.$image)}}" alt="">
+                                            <img src="{{asset('public/storage/kiddash/images/product/'.$image)}}" alt="">
                                         </a>
 
                                         <?php
-                                            $SalePrice = $pd->Price;  
-                                            $get_time_sale = ProductController::get_sale_pd($pd->idProduct); 
+                                        $SalePrice = $pd->Price;
+                                        $get_time_sale = ProductController::get_sale_pd($pd->idProduct);
                                         ?>
 
                                         @if($get_time_sale)
-                                            <?php $SalePrice = $pd->Price - ($pd->Price/100) * $get_time_sale->Percent; ?>
-                                            <div class="product-countdown">
-                                                <div data-countdown="{{$get_time_sale->SaleEnd}}"></div>
-                                            </div>
-                                            @if($pd->QuantityTotal == '0') <span class="sticker-new soldout-title">Hết hàng</span>
-                                            @else <span class="sticker-new label-sale">-{{$get_time_sale->Percent}}%</span>
-                                            @endif
+                                        <?php $SalePrice = $pd->Price - ($pd->Price / 100) * $get_time_sale->Percent; ?>
+                                        <div class="product-countdown">
+                                            <div data-countdown="{{$get_time_sale->SaleEnd}}"></div>
+                                        </div>
+                                        @if($pd->QuantityTotal == '0') <span class="sticker-new soldout-title">Hết hàng</span>
+                                        @else <span class="sticker-new label-sale">-{{$get_time_sale->Percent}}%</span>
+                                        @endif
                                         @elseif($pd->QuantityTotal == '0') <span class="sticker-new soldout-title">Hết hàng</span>;
                                         @endif
 
@@ -118,7 +118,7 @@
                                                 <!-- <li><a class="AddToCart-Single" data-id="{{$pd->idProduct}}" data-PriceNew="{{$SalePrice}}" data-token="{{csrf_token()}}" data-tooltip="tooltip" data-placement="left" title="Thêm vào giỏ hàng"><i class="icon-shopping-bag"></i></a></li> -->
                                                 <li><a class="add-to-compare" data-idcat="{{$pd->idCategory}}" id="{{$pd->idProduct}}" data-tooltip="tooltip" data-placement="left" title="So sánh"><i class="icon-sliders"></i></a></li>
                                                 <li><a class="add-to-wishlist" data-id="{{$pd->idProduct}}" data-tooltip="tooltip" data-placement="left" title="Thêm vào danh sách yêu thích"><i class="icon-heart"></i></a></li>
-                                                <li><a class="quick-view-pd" data-id="{{$pd->idProduct}}" data-tooltip="tooltip" data-placement="left" title="Xem nhanh"><i class="icon-eye"></i></a></li> 
+                                                <li><a class="quick-view-pd" data-id="{{$pd->idProduct}}" data-tooltip="tooltip" data-placement="left" title="Xem nhanh"><i class="icon-eye"></i></a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -135,9 +135,9 @@
                                             @if($SalePrice < $pd->Price)
                                                 <span class="old-price">{{number_format($pd->Price,0,',','.')}}đ</span>
                                                 <span class="current-price">{{number_format(round($SalePrice,-3),0,',','.')}}đ</span>
-                                            @else
+                                                @else
                                                 <span class="current-price">{{number_format($pd->Price,0,',','.')}}đ</span>
-                                            @endif
+                                                @endif
                                         </div>
                                     </div>
                                 </div>
@@ -149,30 +149,30 @@
                         @foreach($list_pd as $key => $pd)
                         <div class="single-product product-list">
                             <div class="product-image">
-                                <?php $image = json_decode($pd->ImageName)[0];?>
+                                <?php $image = json_decode($pd->ImageName)[0]; ?>
                                 <a href="{{URL::to('/shop-single/'.$pd->ProductSlug)}}">
-                                    <img src="{{asset('public/storage/kidoldash/images/product/'.$image)}}" alt="">
+                                    <img src="{{asset('public/storage/kiddash/images/product/'.$image)}}" alt="">
                                 </a>
 
                                 <?php
-                                    $SalePrice = $pd->Price;  
-                                    $get_time_sale = ProductController::get_sale_pd($pd->idProduct); 
+                                $SalePrice = $pd->Price;
+                                $get_time_sale = ProductController::get_sale_pd($pd->idProduct);
                                 ?>
 
                                 @if($get_time_sale)
-                                    <?php $SalePrice = $pd->Price - ($pd->Price/100) * $get_time_sale->Percent; ?>
-                                    <div class="product-countdown">
-                                        <div data-countdown="{{$get_time_sale->SaleEnd}}"></div>
-                                    </div>
-                                    @if($pd->QuantityTotal == '0') <span class="sticker-new soldout-title">Hết hàng</span>
-                                    @else <span class="sticker-new label-sale">-{{$get_time_sale->Percent}}%</span>
-                                    @endif
+                                <?php $SalePrice = $pd->Price - ($pd->Price / 100) * $get_time_sale->Percent; ?>
+                                <div class="product-countdown">
+                                    <div data-countdown="{{$get_time_sale->SaleEnd}}"></div>
+                                </div>
+                                @if($pd->QuantityTotal == '0') <span class="sticker-new soldout-title">Hết hàng</span>
+                                @else <span class="sticker-new label-sale">-{{$get_time_sale->Percent}}%</span>
+                                @endif
                                 @elseif($pd->QuantityTotal == '0') <span class="sticker-new soldout-title">Hết hàng</span>;
                                 @endif
 
                                 <div class="action-links">
                                     <ul>
-                                        <li><a class="quick-view-pd" data-id="{{$pd->idProduct}}" data-tooltip="tooltip" data-placement="left" title="Xem nhanh"><i class="icon-eye"></i></a></li> 
+                                        <li><a class="quick-view-pd" data-id="{{$pd->idProduct}}" data-tooltip="tooltip" data-placement="left" title="Xem nhanh"><i class="icon-eye"></i></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -189,9 +189,9 @@
                                     @if($SalePrice < $pd->Price)
                                         <span class="old-price">{{number_format($pd->Price,0,',','.')}}đ</span>
                                         <span class="current-price">{{number_format(round($SalePrice,-3),0,',','.')}}đ</span>
-                                    @else
+                                        @else
                                         <span class="current-price">{{number_format($pd->Price,0,',','.')}}đ</span>
-                                    @endif
+                                        @endif
                                 </div>
                                 <p>{!!$pd->ShortDes!!}</p>
 
@@ -227,17 +227,15 @@
                         <ul class="categories-list">
                             @foreach($list_category as $key => $category)
                             <li class="d-flex align-items-center">
-                                <input 
-                                <?php 
-                                    if(isset($_GET['category'])){
-                                        $idCategory = $_GET['category'];
-                                        $category_arr = explode(",",$idCategory);
-                                        
-                                        if(in_array($category->idCategory, $category_arr)) echo 'checked';
-                                        else echo '';
-                                    } 
-                                ?> 
-                                class="filter-product" type="checkbox" id="cat-{{$category->idCategory}}" data-filter="category" value="{{$category->idCategory}}" name="category-filter" style="width:15px;height:15px;">
+                                <input <?php
+                                        if (isset($_GET['category'])) {
+                                            $idCategory = $_GET['category'];
+                                            $category_arr = explode(",", $idCategory);
+
+                                            if (in_array($category->idCategory, $category_arr)) echo 'checked';
+                                            else echo '';
+                                        }
+                                        ?> class="filter-product" type="checkbox" id="cat-{{$category->idCategory}}" data-filter="category" value="{{$category->idCategory}}" name="category-filter" style="width:15px;height:15px;">
                                 <label class="mb-0 ml-2" for="cat-{{$category->idCategory}}" style="font-size:15px;cursor:pointer;"><span style="position:relative; top:2px;">{{$category->CategoryName}}</span></label>
                                 <span style="margin-left:auto">({{App\Models\Product::where('idCategory',$category->idCategory)->where('StatusPro','1')->count()}})</span>
                             </li>
@@ -251,19 +249,17 @@
                         <h3 class="widget-title">Theo thương hiệu</h3>
 
                         <ul class="categories-list">
-                        @foreach($list_brand as $key => $brand)
+                            @foreach($list_brand as $key => $brand)
                             <li class="d-flex align-items-center">
-                                <input 
-                                <?php 
-                                    if(isset($_GET['brand'])){
-                                        $idBrand = $_GET['brand'];
-                                        $brand_arr = explode(",",$idBrand);
-                                        
-                                        if(in_array($brand->idBrand, $brand_arr)) echo 'checked';
-                                        else echo '';
-                                    } 
-                                ?> 
-                                class="filter-product" type="checkbox" id="brand-{{$brand->idBrand}}" data-filter="brand" value="{{$brand->idBrand}}" name="brand-filter" style="width:15px;height:15px;">
+                                <input <?php
+                                        if (isset($_GET['brand'])) {
+                                            $idBrand = $_GET['brand'];
+                                            $brand_arr = explode(",", $idBrand);
+
+                                            if (in_array($brand->idBrand, $brand_arr)) echo 'checked';
+                                            else echo '';
+                                        }
+                                        ?> class="filter-product" type="checkbox" id="brand-{{$brand->idBrand}}" data-filter="brand" value="{{$brand->idBrand}}" name="brand-filter" style="width:15px;height:15px;">
                                 <label class="mb-0 ml-2" for="brand-{{$brand->idBrand}}" style="font-size:15px;cursor:pointer;"><span style="position:relative; top:2px;">{{$brand->BrandName}}</span></label>
                                 <span style="margin-left:auto">({{App\Models\Product::where('idBrand',$brand->idBrand)->where('StatusPro','1')->count()}})</span>
                             </li>
@@ -274,21 +270,17 @@
                     <div class="sidebar-categories">
                         <h3 class="widget-title">Theo giá</h3>
                         <div class="d-flex justify-content-between">
-                            <input class="input-filter-price min" type="number" min="0" maxlength="13" placeholder="đ TỪ" onkeypress="return /[0-9]/i.test(event.key)"
-                                <?php
-                                    if(isset($_GET['priceMin'])){
-                                        echo "value=" .$_GET['priceMin'];
-                                    }
-                                ?>
-                            >
+                            <input class="input-filter-price min" type="number" min="0" maxlength="13" placeholder="đ TỪ" onkeypress="return /[0-9]/i.test(event.key)" <?php
+                                                                                                                                                                        if (isset($_GET['priceMin'])) {
+                                                                                                                                                                            echo "value=" . $_GET['priceMin'];
+                                                                                                                                                                        }
+                                                                                                                                                                        ?>>
                             <span style="line-height: 240%;"> - </span>
-                            <input class="input-filter-price max" type="number" min="0" maxlength="13" placeholder="đ ĐẾN" onkeypress="return /[0-9]/i.test(event.key)"
-                                <?php
-                                    if(isset($_GET['priceMax'])){
-                                        echo "value=" .$_GET['priceMax'];
-                                    }
-                                ?>
-                            >
+                            <input class="input-filter-price max" type="number" min="0" maxlength="13" placeholder="đ ĐẾN" onkeypress="return /[0-9]/i.test(event.key)" <?php
+                                                                                                                                                                        if (isset($_GET['priceMax'])) {
+                                                                                                                                                                            echo "value=" . $_GET['priceMax'];
+                                                                                                                                                                        }
+                                                                                                                                                                        ?>>
                         </div>
                         <div class="alert-filter-price text-primary mt-2 d-none">Vui lòng điền khoảng giá phù hợp</div>
                         <button type="button" class="btn-filter-price btn btn-primary">Áp dụng</button>
@@ -326,7 +318,7 @@
 
                     <!--Sidebar Size Start-->
                     <div class="sidebar-banner">
-                        <a href="#"><img src="public/kidolshop/images/banner-top-pd.png" alt=""></a>
+                        <a href="#"><img src="public/kidshop/images/banner-top-pd.png" alt=""></a>
                     </div>
                     <!--Sidebar Size End-->
 
@@ -340,26 +332,26 @@
                             <li>
                                 <div class="single-mini-product">
                                     <div class="product-image">
-                                        <?php $image = json_decode($top_pd->ImageName)[0];?>
+                                        <?php $image = json_decode($top_pd->ImageName)[0]; ?>
                                         <a href="{{URL::to('/shop-single/'.$top_pd->ProductSlug)}}">
-                                            <img src="{{asset('public/storage/kidoldash/images/product/'.$image)}}" alt="">
+                                            <img src="{{asset('public/storage/kiddash/images/product/'.$image)}}" alt="">
                                         </a>
                                     </div>
                                     <div class="product-content">
                                         <h4 class="title"><a class="two-line" href="{{URL::to('/shop-single/'.$top_pd->ProductSlug)}}">{{$top_pd->ProductName}}</a></h4>
                                         <span class="text-primary h6">Đã bán: {{$top_pd->Sold}}</span>
                                         <?php
-                                            $SalePrice = $top_pd->Price;  
-                                            $get_time_sale = ProductController::get_sale_pd($top_pd->idProduct); 
-                                            if($get_time_sale) $SalePrice = $top_pd->Price - ($top_pd->Price/100) * $get_time_sale->Percent;
+                                        $SalePrice = $top_pd->Price;
+                                        $get_time_sale = ProductController::get_sale_pd($top_pd->idProduct);
+                                        if ($get_time_sale) $SalePrice = $top_pd->Price - ($top_pd->Price / 100) * $get_time_sale->Percent;
                                         ?>
                                         <div class="price-box">
                                             @if($SalePrice < $top_pd->Price)
                                                 <span class="old-price">{{number_format($top_pd->Price,0,',','.')}}đ</span>
                                                 <span class="current-price">{{number_format(round($SalePrice,-3),0,',','.')}}đ</span>
-                                            @else
+                                                @else
                                                 <span class="current-price">{{number_format($top_pd->Price,0,',','.')}}đ</span>
-                                            @endif
+                                                @endif
                                         </div>
                                     </div>
                                 </div>

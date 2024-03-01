@@ -1,10 +1,12 @@
 @extends('shop_layout')
 @section('content')
 
-<?php use Illuminate\Support\Facades\Session; ?>
+<?php
+
+use Illuminate\Support\Facades\Session; ?>
 
 <!--Page Banner Start-->
-<div class="page-banner" style="background-image: url(public/kidolshop/images/oso.png);">
+<div class="page-banner" style="background-image: url(public/kidshop/images/oso.png);">
     <div class="container">
         <div class="page-banner-content text-center">
             <h2 class="title">Đăng Ký</h2>
@@ -29,16 +31,16 @@
                         <form method="POST" action="{{URL::to('/submit-register')}}" id="form-register">
                             @csrf
                             <?php
-                                $message = Session::get('message');
-                                $error = Session::get('error');
-                                if($message){
-                                    echo '<span class="text-success">'.$message.'</span>';
-                                    Session::put('message', null);
-                                }else if($error){
-                                    echo '<span class="text-danger">'.$error.'</span>';
-                                    Session::put('error', null);
-                                }
-                            ?>  
+                            $message = Session::get('message');
+                            $error = Session::get('error');
+                            if ($message) {
+                                echo '<span class="text-success">' . $message . '</span>';
+                                Session::put('message', null);
+                            } else if ($error) {
+                                echo '<span class="text-danger">' . $error . '</span>';
+                                Session::put('error', null);
+                            }
+                            ?>
                             <div class="form-group mt-15">
                                 <label for="username">Tên tài khoản</label>
                                 <input id="username" type="text" name="username">
@@ -55,7 +57,7 @@
                                 <span class="text-danger"></span>
                             </div>
                             <div class="form-group mt-15">
-                                <input type="submit" class="btn btn-primary btn-block"  value="Đăng ký"/>
+                                <input type="submit" class="btn btn-primary btn-block" value="Đăng ký" />
                             </div>
                             <div class="form-group mt-15">
                                 <label>Bạn đã có tài khoản?</label>
@@ -72,20 +74,20 @@
 
 <!-- Validate form đăng ký -->
 <script>
-    $(document).ready(function(){  
+    $(document).ready(function() {
         Validator({
             form: "#form-register",
             errorSelector: ".text-danger",
             parentSelector: ".form-group",
-            rules:[
-            Validator.isRequired("#username"),
-            Validator.isRequired("#password"),
-            Validator.isRequired("#repassword"),
-            Validator.isFullname('#username'),
-            Validator.isPassword("#password"),
-            Validator.isRePassword("#repassword",function(){
-                return  document.querySelector("#form-register #password").value;
-            })
+            rules: [
+                Validator.isRequired("#username"),
+                Validator.isRequired("#password"),
+                Validator.isRequired("#repassword"),
+                Validator.isFullname('#username'),
+                Validator.isPassword("#password"),
+                Validator.isRePassword("#repassword", function() {
+                    return document.querySelector("#form-register #password").value;
+                })
             ]
         });
     });

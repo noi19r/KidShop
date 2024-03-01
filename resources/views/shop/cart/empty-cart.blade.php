@@ -2,7 +2,7 @@
 @section('content')
 
 <!--Page Banner Start-->
-<div class="page-banner" style="background-image: url(public/kidolshop/images/banner/banner-shop.png);">
+<div class="page-banner" style="background-image: url(public/kidshop/images/banner/banner-shop.png);">
     <div class="container">
         <div class="page-banner-content text-center">
             <h2 class="title">Giỏ hàng</h2>
@@ -20,7 +20,7 @@
     <div class="container">
         <div class="empty-cart-content text-center d-flex flex-column align-items-center">
             <div class="empty-cart-img">
-                <img src="public/kidolshop/images/cart.png" alt="">
+                <img src="public/kidshop/images/cart.png" alt="">
             </div>
             <p>Giỏ hàng của bạn chưa có sản phẩm!</p>
             <a href="{{URL::to('/store')}}" class="btn btn-primary"><i class="fa fa-angle-left"></i> Tiếp tục mua sắm</a>
