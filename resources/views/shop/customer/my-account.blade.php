@@ -2,7 +2,7 @@
 @section('content')
 
 <!--Page Banner Start-->
-<div class="page-banner" style="background-image: url(public/kidolshop/images/oso.png);">
+<div class="page-banner" style="background-image: url(public/kidshop/images/oso.png);">
     <div class="container">
         <div class="page-banner-content text-center">
             <h2 class="title">Tài khoản của tôi</h2>
@@ -70,13 +70,13 @@
                                                     <div class="profile-img-edit">
                                                         <div class="crm-profile-img-edit">
                                                             @if($customer->Avatar != null)
-                                                            <img class="crm-profile-pic rounded-circle avatar-100 replace-avt" src="public/storage/kidoldash/images/customer/{{$customer->Avatar}}">
-                                                            @else <img class="crm-profile-pic rounded-circle avatar-100 replace-avt" src="public/kidoldash/images/user/1.png"> @endif
+                                                            <img class="crm-profile-pic rounded-circle avatar-100 replace-avt" src="public/storage/kiddash/images/customer/{{$customer->Avatar}}">
+                                                            @else <img class="crm-profile-pic rounded-circle avatar-100 replace-avt" src="public/kiddash/images/user/1.png"> @endif
                                                             <div class="crm-p-image bg-primary">
                                                                 <label for="Avatar" style="cursor:pointer;"><span class="ti-pencil upload-button d-block"></span></label>
                                                                 <input type="file" class="file-upload" id="Avatar" name="Avatar" onchange="loadPreview(this)" accept="image/*">
                                                             </div>
-                                                        </div>                                          
+                                                        </div>
                                                     </div>
                                                     <div class="text-danger alert-img mt-3 ml-3 mr-3"></div>
                                                     <div class="mt-30">
@@ -98,13 +98,13 @@
 </div>
 <!--My Account End-->
 
-<script src="{{asset('public/kidolshop/js/jquery.validate.min.js')}}"></script>
+<script src="{{asset('public/kidshop/js/jquery.validate.min.js')}}"></script>
 
 <script>
-    window.scrollBy(0,300);
+    window.scrollBy(0, 300);
 
-    $(document).ready(function(){  
-        $('.edit-profile').on('click',function(){
+    $(document).ready(function() {
+        $('.edit-profile').on('click', function() {
             $("#form-edit-profile").validate({
                 rules: {
                     CustomerName: {
@@ -132,19 +132,19 @@
 
                 submitHandler: function(form) {
                     let formData = new FormData($('#form-edit-profile')[0]);
-                    if($('input[type=file]')[0].files[0]){
+                    if ($('input[type=file]')[0].files[0]) {
                         let file = $('input[type=file]')[0].files[0];
                         formData.append('file', file, file.name);
                     }
 
                     $.ajax({
-                        url: APP_URL + '/edit-profile',
-                        type: 'POST',   
+                        url: '/edit-profile',
+                        type: 'POST',
                         contentType: false,
-                        processData: false,   
-                        cache: false,        
+                        processData: false,
+                        cache: false,
                         data: formData,
-                        success:function(data){
+                        success: function(data) {
                             location.reload();
                         }
                     });
@@ -153,19 +153,19 @@
         });
     });
 
-    function loadPreview(input){
+    function loadPreview(input) {
         var data = $(input)[0].files; //this file data
-        $.each(data, function(index, file){
-            if(/(\.|\/)(gif|jpeg|png|jpg|svg)$/i.test(file.type) && file.size < 2000000 ){
+        $.each(data, function(index, file) {
+            if (/(\.|\/)(gif|jpeg|png|jpg|svg)$/i.test(file.type) && file.size < 2000000) {
                 var fRead = new FileReader();
-                fRead.onload = (function(file){
+                fRead.onload = (function(file) {
                     return function(e) {
                         $('.replace-avt').attr('src', e.target.result);
                     };
                 })(file);
                 fRead.readAsDataURL(file);
                 $('.alert-img').html($('#Avatar').val().replace(/^.*[\\\/]/, ''));
-            }else{
+            } else {
                 document.querySelector('#Avatar').value = '';
                 $('.alert-img').html("Tệp hình ảnh phải có định dạng .gif, .jpeg, .png, .jpg, .svg dưới 2MB");
             }

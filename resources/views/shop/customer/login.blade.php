@@ -1,10 +1,12 @@
 @extends('shop_layout')
 @section('content')
 
-<?php use Illuminate\Support\Facades\Session; ?>
+<?php
+
+use Illuminate\Support\Facades\Session; ?>
 
 <!--Page Banner Start-->
-<div class="page-banner" style="background-image: url(public/kidolshop/images/oso.png);">
+<div class="page-banner" style="background-image: url(public/kidshop/images/oso.png);">
     <div class="container">
         <div class="page-banner-content text-center">
             <h2 class="title">Đăng Nhập</h2>
@@ -29,12 +31,12 @@
                         <form method="POST" action="{{URL::to('/submit-login')}}" id="form-login">
                             @csrf
                             <?php
-                                $message = Session::get('message');
-                                if($message){
-                                    echo '<span class="text-danger">'.$message.'</span>';
-                                    Session::put('message', null);
-                                }
-                                ?>
+                            $message = Session::get('message');
+                            if ($message) {
+                                echo '<span class="text-danger">' . $message . '</span>';
+                                Session::put('message', null);
+                            }
+                            ?>
                             <div class="form-group mt-15">
                                 <label for="username">Tên tài khoản</label>
                                 <input id="username" type="text" name="username">
@@ -46,7 +48,7 @@
                                 <span class="text-danger"></span>
                             </div>
                             <div class="form-group mt-15">
-                                <input type="submit" class="btn btn-primary btn-block" value="Đăng nhập"/>
+                                <input type="submit" class="btn btn-primary btn-block" value="Đăng nhập" />
                             </div>
                             <div class="form-group mt-15">
                                 <label>Bạn chưa có tài khoản?</label>
@@ -63,14 +65,14 @@
 
 <!-- Validate form đăng nhập -->
 <script>
-    $(document).ready(function(){  
+    $(document).ready(function() {
         Validator({
             form: "#form-login",
             errorSelector: ".text-danger",
             parentSelector: ".form-group",
-            rules:[
-            Validator.isRequired("#username"),
-            Validator.isRequired("#password")
+            rules: [
+                Validator.isRequired("#username"),
+                Validator.isRequired("#password")
             ]
         });
     });

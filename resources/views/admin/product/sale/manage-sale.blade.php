@@ -9,7 +9,7 @@
                     <div>
                         <h4 class="mb-3">Danh Sách Khuyến Mãi ( Tổng: {{$count_sale}} đợt )</h4>
                         <p class="mb-0">Danh sách khuyến mãi hiện có. <br>
-                        Trang này hiện thông tin các sản phẩm khuyến mãi theo đợt, có thể chỉnh sửa và xóa sản phẩm khuyến mãi.</p>
+                            Trang này hiện thông tin các sản phẩm khuyến mãi theo đợt, có thể chỉnh sửa và xóa sản phẩm khuyến mãi.</p>
                     </div>
                     <a href="{{URL::to('/add-sale')}}" class="btn btn-primary add-list"><i class="las la-plus mr-3"></i>Thêm khuyến mãi</a>
                 </div>
@@ -34,8 +34,8 @@
                                 <td>{{$sale->SaleName}}</td>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        <?php $image = json_decode($sale->ImageName)[0];?>
-                                        <img src="{{asset('public/storage/kidoldash/images/product/'.$image)}}" class="img-fluid rounded avatar-50 mr-3" alt="image">
+                                        <?php $image = json_decode($sale->ImageName)[0]; ?>
+                                        <img src="{{asset('public/storage/kiddash/images/product/'.$image)}}" class="img-fluid rounded avatar-50 mr-3" alt="image">
                                         <div>{{$sale->ProductName}}</div>
                                     </div>
                                 </td>
@@ -44,22 +44,20 @@
                                 <td>{{$sale->Percent}}</td>
                                 <td>
                                     <div class="d-flex align-items-center list-action">
-                                        <a class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sửa"
-                                            href="{{URL::to('/edit-sale/'.$sale->idSale.'/'.$sale->idProduct)}}"><i class="ri-pencil-line mr-0"></i></a>
-                                        
-                                        <a class="badge bg-warning mr-2" data-toggle="modal" data-target="#modal-delete-{{$sale->idSale}}" data-placement="top" title="" data-original-title="Xóa"
-                                            style="cursor:pointer;"><i class="ri-delete-bin-line mr-0"></i></a>
+                                        <a class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sửa" href="{{URL::to('/edit-sale/'.$sale->idSale.'/'.$sale->idProduct)}}"><i class="ri-pencil-line mr-0"></i></a>
+
+                                        <a class="badge bg-warning mr-2" data-toggle="modal" data-target="#modal-delete-{{$sale->idSale}}" data-placement="top" title="" data-original-title="Xóa" style="cursor:pointer;"><i class="ri-delete-bin-line mr-0"></i></a>
                                     </div>
                                 </td>
                             </tr>
 
-                            <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" id="modal-delete-{{$sale->idSale}}"  aria-hidden="true">
+                            <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" id="modal-delete-{{$sale->idSale}}" aria-hidden="true">
                                 <div class="modal-dialog modal-sm">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title">Thông báo</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">×</span>
+                                                <span aria-hidden="true">×</span>
                                             </button>
                                         </div>
                                         <div class="modal-body">

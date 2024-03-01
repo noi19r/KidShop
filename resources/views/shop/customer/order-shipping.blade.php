@@ -2,7 +2,7 @@
 @section('content')
 
 <!--Page Banner Start-->
-<div class="page-banner" style="background-image: url(public/kidolshop/images/oso.png);">
+<div class="page-banner" style="background-image: url(public/kidshop/images/oso.png);">
     <div class="container">
         <div class="page-banner-content text-center">
             <h2 class="title">Đơn đặt hàng</h2>
@@ -53,13 +53,13 @@
                                     @if(App\Models\Bill::where('idCustomer',Session::get('idCustomer'))->where('Status','0')->count() > 0)
                                     <span class="qty-ordered">{{App\Models\Bill::where('idCustomer',Session::get('idCustomer'))->where('Status','0')->count()}}</span> @endif
                                 </a>
-                                <a class="col-xl-2 col-md-2 text-center view-hover text-primary" style="position:relative;"> 
+                                <a class="col-xl-2 col-md-2 text-center view-hover text-primary" style="position:relative;">
                                     <i class="fa fa-plane" style="font-size:24px;"></i>
                                     <div>Đang giao</div>
                                     @if(App\Models\Bill::where('idCustomer',Session::get('idCustomer'))->where('Status','1')->count() > 0)
                                     <span class="qty-ordered">{{App\Models\Bill::where('idCustomer',Session::get('idCustomer'))->where('Status','1')->count()}}</span> @endif
                                 </a>
-                                <a href="{{URL::to('/order-shipped')}}" class="col-xl-2 col-md-2 text-center view-hover" style="position:relative;"> 
+                                <a href="{{URL::to('/order-shipped')}}" class="col-xl-2 col-md-2 text-center view-hover" style="position:relative;">
                                     <i class="fa fa-check-circle" style="font-size:24px;"></i>
                                     <div>Đã giao</div>
                                     @if(App\Models\Bill::where('idCustomer',Session::get('idCustomer'))->where('Status','2')->count() > 0)
@@ -73,36 +73,36 @@
                                 </a>
                             </div>
                             <!-- <div class="account-table text-center mt-25 table-responsive"> -->
-                                <table id="example" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%;">
-                                    <thead>
-                                        <tr>
-                                            <th class="no">Mã ĐH</th>
-                                            <th class="name">Tên người nhận</th>
-                                            <th class="date">Ngày đặt</th>
-                                            <th class="total">Tổng tiền</th>
-                                            <th class="action text-center">Thao tác</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>             
-                                        @foreach($list_bill as $key => $bill)                     
-                                        <tr>
-                                            <td>{{$bill->idBill}}</td>
-                                            <td>{{$bill->CustomerName}}</td>
-                                            <td>{{$bill->created_at}}</td>            
+                            <table id="example" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%;">
+                                <thead>
+                                    <tr>
+                                        <th class="no">Mã ĐH</th>
+                                        <th class="name">Tên người nhận</th>
+                                        <th class="date">Ngày đặt</th>
+                                        <th class="total">Tổng tiền</th>
+                                        <th class="action text-center">Thao tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($list_bill as $key => $bill)
+                                    <tr>
+                                        <td>{{$bill->idBill}}</td>
+                                        <td>{{$bill->CustomerName}}</td>
+                                        <td>{{$bill->created_at}}</td>
 
-                                            <td>{{number_format($bill->TotalBill,0,',','.')}}đ</td>
+                                        <td>{{number_format($bill->TotalBill,0,',','.')}}đ</td>
 
-                                            <form action="{{URL::to('/confirm-bill/'.$bill->idBill)}}" method="POST"> @csrf
+                                        <form action="{{URL::to('/confirm-bill/'.$bill->idBill)}}" method="POST"> @csrf
                                             <td class="d-flex justify-content-center">
                                                 <a class="view-hover h3 mr-2" href="{{URL::to('/ordered-info/'.$bill->idBill)}}" data-toggle="tooltip" data-placement="top" title="" data-original-title="Xem chi tiết"><i class="fa fa-eye"></i></a>
-                                                <button class="view-hover h3" style=" border:none; background-color: transparent;" data-toggle="tooltip" data-placement="top" title="" data-original-title="Xác nhận hoàn thành"><i class="fa fa-check-circle"></i></button>
-                                                <input type="hidden" name="Status" value="2">    
+                                                <!-- <button class="view-hover h3" style=" border:none; background-color: transparent;" data-toggle="tooltip" data-placement="top" title="" data-original-title="Xác nhận hoàn thành"><i class="fa fa-check-circle"></i></button>
+                                                <input type="hidden" name="Status" value="2">     -->
                                             </td>
-                                            </form>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                                        </form>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                             <!-- </div> -->
                         </div>
                     </div>
@@ -114,10 +114,12 @@
 <!--My Account End-->
 
 <script>
-    window.scrollBy(0,300);
-    $(document).ready(function(){  
+    window.scrollBy(0, 300);
+    $(document).ready(function() {
         $('#example').DataTable();
-        $('body').tooltip({selector: '[data-toggle="tooltip"]'});
+        $('body').tooltip({
+            selector: '[data-toggle="tooltip"]'
+        });
     });
 </script>
 

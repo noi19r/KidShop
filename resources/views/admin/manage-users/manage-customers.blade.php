@@ -29,30 +29,27 @@
                             @foreach($list_customer as $key => $customer)
                             <tr>
                                 @if($customer->Avatar)
-                                <td class="text-center"><img class="rounded img-fluid avatar-40"
-                                        src="public/kidolshop/images/customer/{{$customer->Avatar}}" alt="profile"></td>
+                                <td class="text-center"><img class="rounded img-fluid avatar-40" src="public/kidshop/images/customer/{{$customer->Avatar}}" alt="profile"></td>
                                 @else
-                                <td class="text-center"><img class="rounded img-fluid avatar-40"
-                                        src="public/kidolshop/images/customer/1.png" alt="profile"></td>
+                                <td class="text-center"><img class="rounded img-fluid avatar-40" src="public/kidshop/images/customer/1.png" alt="profile"></td>
                                 @endif
                                 <td>{{$customer->username}}</td>
                                 <td>{{$customer->CustomerName}}</td>
                                 <td>{{$customer->PhoneNumber}}</td>
                                 <td>
                                     <div class="d-flex align-items-center list-action">
-                                        <a class="badge bg-warning mr-2" data-toggle="modal" data-target="#modal-delete-{{$customer->idCustomer}}" data-placement="top" title="" data-original-title="Xoá"
-                                            style="cursor:pointer;"><i class="ri-delete-bin-line mr-0"></i></a>
+                                        <a class="badge bg-warning mr-2" data-toggle="modal" data-target="#modal-delete-{{$customer->idCustomer}}" data-placement="top" title="" data-original-title="Xoá" style="cursor:pointer;"><i class="ri-delete-bin-line mr-0"></i></a>
                                     </div>
                                 </td>
                             </tr>
 
-                            <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" id="modal-delete-{{$customer->idCustomer}}"  aria-hidden="true">
+                            <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" id="modal-delete-{{$customer->idCustomer}}" aria-hidden="true">
                                 <div class="modal-dialog modal-sm">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title">Thông báo</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">×</span>
+                                                <span aria-hidden="true">×</span>
                                             </button>
                                         </div>
                                         <div class="modal-body">

@@ -2,7 +2,7 @@
 @section('content')
 
 <!--Page Banner Start-->
-<div class="page-banner" style="background-image: url(public/kidolshop/images/oso.png);">
+<div class="page-banner" style="background-image: url(public/kidshop/images/oso.png);">
     <div class="container">
         <div class="page-banner-content text-center">
             <h2 class="title">Đổi mật khẩu</h2>
@@ -75,13 +75,13 @@
 </div>
 <!--My Account End-->
 
-<script src="{{asset('public/kidolshop/js/jquery.validate.min.js')}}"></script>
+<script src="{{asset('public/kidshop/js/jquery.validate.min.js')}}"></script>
 
 <script>
-    window.scrollBy(0,300);
+    window.scrollBy(0, 300);
 
-    $(document).ready(function(){  
-        $('.change-password').on('click',function(){
+    $(document).ready(function() {
+        $('.change-password').on('click', function() {
             $("#form-change-password").validate({
                 rules: {
                     password: {
@@ -119,13 +119,13 @@
                     let formData = new FormData($('#form-change-password')[0]);
 
                     $.ajax({
-                        url: APP_URL + '/submit-change-password',
-                        type: 'POST',   
+                        url: '/submit-change-password',
+                        type: 'POST',
                         contentType: false,
-                        processData: false,   
-                        cache: false,        
+                        processData: false,
+                        cache: false,
                         data: formData,
-                        success:function(data){
+                        success: function(data) {
                             $('.alert-password').html(data);
                             $('#password').val("");
                             $('#newpassword').val("");

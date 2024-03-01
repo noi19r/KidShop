@@ -1,7 +1,9 @@
 @extends('admin_layout')
 @section('content_dash')
 
-<?php use Illuminate\Support\Facades\Session; ?>
+<?php
+
+use Illuminate\Support\Facades\Session; ?>
 
 <div class="content-page">
     <div class="container-fluid">
@@ -17,16 +19,16 @@
             </div>
 
             <?php
-                $message = Session::get('message');
-                $error = Session::get('error');
-                if($message){
-                    echo '<span class="text-success ml-3">'.$message.'</span>';
-                    Session::put('message', null);
-                }else if($error){
-                    echo '<span class="text-danger ml-3">'.$error.'</span>';
-                    Session::put('error', null);
-                }
-            ?>  
+            $message = Session::get('message');
+            $error = Session::get('error');
+            if ($message) {
+                echo '<span class="text-success ml-3">' . $message . '</span>';
+                Session::put('message', null);
+            } else if ($error) {
+                echo '<span class="text-danger ml-3">' . $error . '</span>';
+                Session::put('error', null);
+            }
+            ?>
             <div class="col-lg-12">
                 <div class="table-responsive rounded mb-3">
                     <table class="data-tables table mb-0 tbl-server-info">
@@ -46,11 +48,9 @@
                             @foreach($list_staff as $key => $staff)
                             <tr>
                                 @if($staff->Avatar)
-                                <td class="text-center"><img class="rounded img-fluid avatar-50"
-                                        src="public/storage/kidoldash/images/user/{{$staff->Avatar}}" alt="profile"></td>
+                                <td class="text-center"><img class="rounded img-fluid avatar-50" src="public/storage/kiddash/images/user/{{$staff->Avatar}}" alt="profile"></td>
                                 @else
-                                <td class="text-center"><img class="rounded img-fluid avatar-50"
-                                        src="public/kidoldash/images/user/12.jpg" alt="profile"></td>
+                                <td class="text-center"><img class="rounded img-fluid avatar-50" src="public/kiddash/images/user/12.jpg" alt="profile"></td>
                                 @endif
                                 <td>{{$staff->AdminUser}}</td>
                                 <td>{{$staff->AdminName}}</td>
@@ -64,19 +64,18 @@
                                             href="#"><i class="ri-eye-line mr-0"></i></a>
                                         <a class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"
                                             href="#"><i class="ri-pencil-line mr-0"></i></a> -->
-                                        <a class="badge bg-warning mr-2" data-toggle="modal" data-target="#modal-delete-{{$staff->idAdmin}}" data-placement="top" title="" data-original-title="Xóa"
-                                            style="cursor:pointer;"><i class="ri-delete-bin-line mr-0"></i></a>
+                                        <a class="badge bg-warning mr-2" data-toggle="modal" data-target="#modal-delete-{{$staff->idAdmin}}" data-placement="top" title="" data-original-title="Xóa" style="cursor:pointer;"><i class="ri-delete-bin-line mr-0"></i></a>
                                     </div>
                                 </td>
                             </tr>
 
-                            <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" id="modal-delete-{{$staff->idAdmin}}"  aria-hidden="true">
+                            <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" id="modal-delete-{{$staff->idAdmin}}" aria-hidden="true">
                                 <div class="modal-dialog modal-sm">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title">Thông báo</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">×</span>
+                                                <span aria-hidden="true">×</span>
                                             </button>
                                         </div>
                                         <div class="modal-body">

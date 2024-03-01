@@ -1,10 +1,12 @@
 @extends('shop_layout')
 @section('content')
 
-<?php use Illuminate\Support\Facades\Session; ?>
+<?php
+
+use Illuminate\Support\Facades\Session; ?>
 
 <!--Page Banner Start-->
-<div class="page-banner" style="background-image: url(../public/kidolshop/images/oso.png);">
+<div class="page-banner" style="background-image: url(../public/kidshop/images/oso.png);">
     <div class="container">
         <div class="page-banner-content text-center">
             <h2 class="title">Chi Tiết Đơn Hàng</h2>
@@ -48,13 +50,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $Total = 0; $ship = 0; $total_bill = 0; $discount = 0; ?>
+                    <?php $Total = 0;
+                    $ship = 0;
+                    $total_bill = 0;
+                    $discount = 0; ?>
                     @foreach($list_bill_info as $key => $bill_info)
-                        <?php $Total += ($bill_info->Price * $bill_info->QuantityBuy); ?>
+                    <?php $Total += ($bill_info->Price * $bill_info->QuantityBuy); ?>
                     <tr class="product-item">
                         <?php $image = json_decode($bill_info->ImageName)[0]; ?>
                         <td class="image">
-                            <a href="{{URL::to('/shop-single/'.$bill_info->ProductSlug)}}"><img src="{{asset('public/storage/kidoldash/images/product/'.$image)}}" alt=""></a>
+                            <a href="{{URL::to('/shop-single/'.$bill_info->ProductSlug)}}"><img src="{{asset('public/storage/kiddash/images/product/'.$image)}}" alt=""></a>
                         </td>
                         <td class="product">
                             <a href="{{URL::to('/shop-single/'.$bill_info->ProductSlug)}}">{{$bill_info->ProductName}}</a>
@@ -76,53 +81,54 @@
                     <div class="cart-title">
                         <h4 class="title">Tổng giỏ hàng</h4>
                     </div>
-                    <div class="cart-total-table mt-25">
+                    <div class="cart-total-table mt-25" style="position:relative;">
                         <table class="table">
                             <tbody>
                                 <tr>
                                     <td>Tổng tiền hàng</td>
                                     <td class="text-right">{{number_format($Total,0,',','.')}}đ</td>
                                 </tr>
-                                @if($Total < 1000000) @php $ship = '30000'; $total_bill = $Total + $ship; @endphp
-                                @else @php $ship = 'Miễn phí'; $total_bill = $Total; @endphp @endif
-                                <tr class="shipping">
+                                @if($Total < 1000000) @php $ship='30000' ; $total_bill=$Total + $ship; @endphp @else @php $ship='Miễn phí' ; $total_bill=$Total; @endphp @endif <tr class="shipping">
                                     <td>Phí vận chuyển (Miễn phí vận chuyển cho đơn hàng trên 1.000.000đ)</td>
                                     <td class="text-right">
-                                            @if($ship > 0) {{number_format($ship,0,',','.')}}đ
-                                            @else {{$ship}} @endif
+                                        @if($ship > 0) {{number_format($ship,0,',','.')}}đ
+                                        @else {{$ship}} @endif
                                     </td>
-                                </tr>
+                                    </tr>
 
-                                @if($address->Voucher != '') 
-                                <tr>
-                                    <td width="70%">Mã giảm giá</td>
-                                    @php
+                                    @if($address->Voucher != '')
+                                    <tr>
+                                        <td width="70%">Mã giảm giá</td>
+                                        @php
                                         $Voucher = explode("-",$address->Voucher);
                                         $VoucherCondition = $Voucher[1];
                                         $VoucherNumber = $Voucher[2];
                                         if($VoucherCondition == 1) $discount = ($Total/100) * $VoucherNumber;
                                         else{
-                                            $discount = $VoucherNumber;
-                                            if($discount > $Total) $discount = $Total;
-                                        } 
+                                        $discount = $VoucherNumber;
+                                        if($discount > $Total) $discount = $Total;
+                                        }
 
-                                        $total_bill =  $total_bill - $discount;
-                                        if($total_bill < 0) $total_bill = $ship;
-                                    @endphp
-                                    <td class="text-right totalBill">- {{number_format($discount,0,',','.')}}đ</td>
-                                </tr>
-                                @endif
+                                        $total_bill = $total_bill - $discount;
+                                        if($total_bill < 0) $total_bill=$ship; @endphp <td class="text-right totalBill">- {{number_format($discount,0,',','.')}}đ</td>
+                                    </tr>
+                                    @endif
 
-                                <tr>
-                                    <td width="70%">Thành tiền</td>
-                                    <td class="text-right totalBill">{{number_format($total_bill,0,',','.')}}đ</td>
-                                </tr>
+                                    <tr>
+                                        <td width="70%">Thành tiền</td>
+                                        <td class="text-right totalBill">{{number_format($total_bill,0,',','.')}}đ</td>
+                                    </tr>
 
-                                <input type="hidden" class="subtotal" value="{{$Total}}">
-                                <input type="hidden" name="TotalBill" class="totalBillVal" value="{{$total_bill}}">    
-                                <input type="hidden" name="idVoucher" class="idVoucher" value="0">                                
+                                    <input type="hidden" class="subtotal" value="{{$Total}}">
+                                    <input type="hidden" name="TotalBill" class="totalBillVal" value="{{$total_bill}}">
+                                    <input type="hidden" name="idVoucher" class="idVoucher" value="0">
                             </tbody>
                         </table>
+                        @if($address->Payment == 'vnpay')
+                        <div class="col-lg-3 paid_tag">
+                            <div class="h3 p-3 mb-0 text-primary">Đã thanh toán</div>
+                        </div>
+                        @endif
                     </div>
                     <!-- <div class="container__address-content">
                         <div class="container__address-content-hd">
